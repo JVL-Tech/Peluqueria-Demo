@@ -494,7 +494,8 @@
     }
     .modal-body h3{ font-size: 24px; margin-bottom: 16px; }
     .modal-body .lead{ font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
-    .modal-meta{ grid-template-columns: 1fr; gap: 8px; padding: 16px 0; margin-bottom: 24px; }
+    .modal-meta{ grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px 0; margin-bottom: 24px; }
+    .modal-meta div:last-child{ grid-column: span 2; margin-top: 4px; border-top: 1px solid var(--line); padding-top: 12px; }
     .modal-meta div strong{ font-size: 16px; }
     .modal-body h5{ margin-bottom: 12px; }
     .modal-body ul{ margin-bottom: 24px; }
@@ -511,6 +512,7 @@
     }
 
     .contact{grid-template-columns:1fr;gap:48px}
+    .row-2{grid-template-columns: 1fr; gap: 0;}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
     footer{padding:80px 24px 36px}
   }
@@ -875,6 +877,13 @@
   card.addEventListener('click', (e) => {
     if (e.target.closest('.modal-cta')) return;
     card.classList.toggle('is-flipped');
+  });
+
+  // Close modal when clicking the booking link
+  document.querySelectorAll('.modal-cta').forEach(cta => {
+    cta.addEventListener('click', () => {
+      closeModal();
+    });
   });
 
   closeBtns.forEach(btn => {
