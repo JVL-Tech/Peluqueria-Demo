@@ -478,13 +478,29 @@
       padding: 20px 24px; background: var(--ink); color: var(--bg);
       display: flex; justify-content: space-between; align-items: center;
     }
-    .modal-face-front .info-bar h3{ font-family: var(--display); font-size: 20px; }
-    .modal-face-front .hint{ font-size: 8px; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.6; }
+    .modal-face-front .hint, .modal-face-back .hint{
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--ink-2); text-align: center; width: 100%;
+      margin-top: 24px; opacity: 0.8;
+    }
+    .modal-face-back .hint{ color: oklch(1 0 0 / 0.7); margin-top: 0; }
+    
+    .modal-face-back .info-bar{
+      padding: 20px; background: var(--ink); color: var(--bg);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .modal-face-back .info-bar h3{ font-family: var(--display); font-size: 20px; text-align: center; }
 
     .modal-face-back{
       transform: rotateY(180deg);
       display: flex; flex-direction: column;
       overflow-y: auto;
+    }
+    .modal-face-back .modal-img{
+      flex: 1;
+      background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
+      background-size: cover; background-position: center;
+      height: 100%;
     }
     .modal-body{ 
       padding: 28px 20px; 
@@ -503,7 +519,7 @@
     .modal-cta{ margin-top: auto; padding: 16px 24px; font-size: 12px; }
 
     .modal-close{ 
-      position: fixed; 
+      position: absolute; 
       top: 16px; right: 16px; 
       z-index: 1000;
       background: oklch(1 0 0 / 0.8);
@@ -739,19 +755,11 @@
 
     <!-- MOBILE FLIP CARD LAYOUT -->
     <div class="modal-mobile-wrap">
-      <button class="modal-close" id="modal-close-mobile" aria-label="Cerrar">✕</button>
       <div class="modal-container">
         <div class="modal-card" id="modal-card">
-          <!-- FRONT -->
+          <!-- FRONT (Now showing Info) -->
           <div class="modal-face modal-face-front">
-            <div class="modal-img" id="m-img-front"></div>
-            <div class="info-bar">
-              <h3 id="m-name-front">—</h3>
-              <span class="hint">Info ↺</span>
-            </div>
-          </div>
-          <!-- BACK -->
-          <div class="modal-face modal-face-back">
+            <button class="modal-close" aria-label="Cerrar">✕</button>
             <div class="modal-body">
               <h3 id="m-name-back">—</h3>
               <p class="lead" id="m-lead-mobile">—</p>
@@ -763,7 +771,16 @@
               <h5>Qué incluye</h5>
               <ul id="m-includes-mobile"></ul>
               <a href="#contacto" class="modal-cta">Reservar servicio →</a>
-              <p style="text-align:center; margin-top: 24px; font-size: 10px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.1em;">Toca para volver ↺</p>
+              <p class="hint">Toca para ver foto ↺</p>
+            </div>
+          </div>
+          <!-- BACK (Now showing Photo) -->
+          <div class="modal-face modal-face-back">
+            <button class="modal-close" aria-label="Cerrar">✕</button>
+            <div class="modal-img" id="m-img-front"></div>
+            <div class="info-bar">
+              <h3 id="m-name-front">—</h3>
+              <p class="hint">Toca para ver info ↺</p>
             </div>
           </div>
         </div>
