@@ -195,67 +195,85 @@
   }
   .service-row:hover .arr{background:var(--ink);color:var(--bg);transform:rotate(-45deg)}
 
-  /* Modal */
+  /* Modal Base */
   .modal-backdrop{
     position:fixed;inset:0;z-index:80;
-    background:oklch(0.22 0.02 50 / 0.55);
-    backdrop-filter: blur(6px);
+    background:oklch(0 0 0 / 0.4);
+    backdrop-filter: blur(8px);
     opacity:0;pointer-events:none;
-    transition:opacity .3s;
-    display:flex;align-items:center;justify-content:center;padding:24px;
+    transition:opacity .4s cubic-bezier(0.4, 0, 0.2, 1);
+    display:flex;align-items:center;justify-content:center;
   }
   .modal-backdrop.open{opacity:1;pointer-events:auto}
-  .modal{
-    background:var(--bg);width:min(960px, 100%);max-height:88vh;overflow:auto;
-    display:grid;grid-template-columns: 1fr 1fr;
-    transform: translateY(20px) scale(0.98);
-    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  
+  /* Desktop Modal (Original) */
+  .modal-desktop{
+    background:var(--bg);width:min(1080px, 90vw);max-height:85vh;overflow:hidden;
+    display:grid;grid-template-columns: 1fr 1.2fr;
+    box-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.25);
+    position: relative;
+    opacity: 0; transform: scale(0.95);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  .modal-backdrop.open .modal{transform:translateY(0) scale(1)}
-  .modal-img{
-    min-height:100%;
+  .modal-backdrop.open .modal-desktop{ opacity: 1; transform: scale(1); }
+  
+  .modal-desktop .m-img{
     background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
+    background-size: cover; background-position: center;
   }
-  .modal-body{padding:52px 48px;position:relative}
+  .modal-desktop .m-content{ padding: 60px; overflow-y: auto; }
+  .modal-desktop .modal-close{ 
+    position: absolute;
+    top: 24px; right: 24px; 
+    z-index: 100;
+  }
+
+  /* Shared Modal Elements */
   .modal-body h3{
     font-family:var(--display);font-weight:500;
-    font-size:30px;line-height:1.05;letter-spacing:-0.03em;margin-bottom:20px;
+    font-size:36px;line-height:1.05;letter-spacing:-0.03em;margin-bottom:24px;
   }
   .modal-body .lead{
-    font-size:16px;line-height:1.6;color:var(--ink-2);margin-bottom:32px;
+    font-size:16px;line-height:1.6;color:var(--ink-2);margin-bottom:36px;
   }
   .modal-body h5{
     font-size:11px;letter-spacing:0.22em;
     text-transform:uppercase;color:var(--ink);margin-bottom:16px;font-weight:600;
   }
-  .modal-body ul{list-style:none;margin-bottom:28px}
+  .modal-body ul{list-style:none;margin-bottom:32px}
   .modal-body ul li{
-    padding:12px 0;border-bottom:1px solid var(--line);
+    padding:14px 0;border-bottom:1px solid var(--line);
     font-size:14px;display:flex;justify-content:space-between;
   }
   .modal-body ul li span:last-child{color:var(--ink-2)}
+  
   .modal-meta{
-    display:flex;gap:32px;padding:18px 0;
+    display:grid;grid-template-columns: repeat(3, 1fr);gap:24px;padding:28px 0;
     border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    margin-bottom:28px;
+    margin-bottom:32px;
   }
-  .modal-meta div span{display:block;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+  .modal-meta div span{display:block;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
   .modal-meta div strong{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:-0.02em}
+  
   .modal-cta{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:14px 26px;background:var(--ink);color:var(--bg);
-    border-radius:999px;font-size:12px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:20px 32px;background:var(--ink);color:var(--bg);
+    border-radius:999px;font-size:13px;font-weight:600;
     letter-spacing:0.06em;text-transform:uppercase;
-    transition:background .2s;
+    transition:background .2s, transform .2s;
   }
-  .modal-cta:hover{background:var(--accent)}
+  .modal-cta:hover{background:var(--accent);transform: translateY(-2px);}
+  
   .modal-close{
-    position:absolute;top:20px;right:20px;
-    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+    width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+    background: var(--bg);
     display:flex;align-items:center;justify-content:center;
     transition:background .2s, color .2s;
   }
   .modal-close:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+  /* Mobile Flip Card (Hidden by default) */
+  .modal-mobile-wrap { display: none; }
 
   /* ============ GALER\u00cdA — im\u00e1genes ALTAS ============ */
   .gallery-wrap{
@@ -413,9 +431,85 @@
     .gal{grid-column: span 1 !important;height:460px !important;margin-top:0 !important}
     .blog-grid{grid-template-columns:1fr}
     .post-img{aspect-ratio: 16/9}
-    .modal{grid-template-columns:1fr; max-height: 90vh;}
-    .modal-img{height: 200px; min-height: 200px;}
-    .modal-body{padding: 36px 24px;}
+    
+    /* Hide Desktop Modal */
+    .modal-desktop { display: none; }
+    
+    /* Show Mobile Flip Card */
+    .modal-mobile-wrap { 
+      display: block; 
+      width: 100%; height: 100%; 
+      display: flex; align-items: center; justify-content: center;
+    }
+    
+    .modal-container{
+      perspective: 1500px;
+      width: 90vw;
+      height: 85vh;
+      max-height: 750px;
+    }
+
+    .modal-card{
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .modal-card.is-flipped{ transform: rotateY(180deg); }
+
+    .modal-face{
+      position: absolute; inset: 0;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background: var(--bg);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.25);
+      border-radius: 12px;
+    }
+
+    .modal-face-front{ display: flex; flex-direction: column; }
+    .modal-face-front .modal-img{
+      flex: 1;
+      background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
+      background-size: cover; background-position: center;
+    }
+    .modal-face-front .info-bar{
+      padding: 20px 24px; background: var(--ink); color: var(--bg);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-face-front .info-bar h3{ font-family: var(--display); font-size: 20px; }
+    .modal-face-front .hint{ font-size: 8px; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.6; }
+
+    .modal-face-back{
+      transform: rotateY(180deg);
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+    .modal-body{ 
+      padding: 28px 20px; 
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .modal-body h3{ font-size: 24px; margin-bottom: 16px; }
+    .modal-body .lead{ font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+    .modal-meta{ grid-template-columns: 1fr; gap: 8px; padding: 16px 0; margin-bottom: 24px; }
+    .modal-meta div strong{ font-size: 16px; }
+    .modal-body h5{ margin-bottom: 12px; }
+    .modal-body ul{ margin-bottom: 24px; }
+    .modal-body ul li{ padding: 10px 0; font-size: 13px; }
+    .modal-cta{ margin-top: auto; padding: 16px 24px; font-size: 12px; }
+
+    .modal-close{ 
+      position: fixed; 
+      top: 16px; right: 16px; 
+      z-index: 1000;
+      background: oklch(1 0 0 / 0.8);
+      backdrop-filter: blur(4px);
+      border: none;
+    }
+
     .contact{grid-template-columns:1fr;gap:48px}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
     footer{padding:80px 24px 36px}
@@ -618,22 +712,59 @@
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal Master -->
   <div class="modal-backdrop" id="modal-backdrop">
-    <div class="modal" id="modal">
-      <div class="modal-img"></div>
-      <div class="modal-body">
-        <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
-        <h3 id="m-name">—</h3>
-        <p class="lead" id="m-lead">—</p>
-        <div class="modal-meta">
-          <div><span>Duración</span><strong id="m-time">—</strong></div>
-          <div><span>Desde</span><strong id="m-price">—</strong></div>
-          <div><span>Frecuencia</span><strong id="m-freq">—</strong></div>
+    
+    <!-- DESKTOP LAYOUT -->
+    <div class="modal-desktop" id="modal-desktop">
+      <button class="modal-close" id="modal-close-desktop" aria-label="Cerrar">✕</button>
+      <div class="m-img" id="m-img-desktop"></div>
+      <div class="m-content">
+        <div class="modal-body">
+          <h3 id="m-name-desktop">—</h3>
+          <p class="lead" id="m-lead-desktop">—</p>
+          <div class="modal-meta">
+            <div><span>Duración</span><strong id="m-time-desktop">—</strong></div>
+            <div><span>Desde</span><strong id="m-price-desktop">—</strong></div>
+            <div><span>Frecuencia</span><strong id="m-freq-desktop">—</strong></div>
+          </div>
+          <h5>Qué incluye</h5>
+          <ul id="m-includes-desktop"></ul>
+          <a href="#contacto" class="modal-cta">Reservar servicio →</a>
         </div>
-        <h5>Qué incluye</h5>
-        <ul id="m-includes"></ul>
-        <a href="#contacto" class="modal-cta" id="m-book">Reservar este servicio →</a>
+      </div>
+    </div>
+
+    <!-- MOBILE FLIP CARD LAYOUT -->
+    <div class="modal-mobile-wrap">
+      <button class="modal-close" id="modal-close-mobile" aria-label="Cerrar">✕</button>
+      <div class="modal-container">
+        <div class="modal-card" id="modal-card">
+          <!-- FRONT -->
+          <div class="modal-face modal-face-front">
+            <div class="modal-img" id="m-img-front"></div>
+            <div class="info-bar">
+              <h3 id="m-name-front">—</h3>
+              <span class="hint">Info ↺</span>
+            </div>
+          </div>
+          <!-- BACK -->
+          <div class="modal-face modal-face-back">
+            <div class="modal-body">
+              <h3 id="m-name-back">—</h3>
+              <p class="lead" id="m-lead-mobile">—</p>
+              <div class="modal-meta">
+                <div><span>Duración</span><strong id="m-time-mobile">—</strong></div>
+                <div><span>Desde</span><strong id="m-price-mobile">—</strong></div>
+                <div><span>Frecuencia</span><strong id="m-freq-mobile">—</strong></div>
+              </div>
+              <h5>Qué incluye</h5>
+              <ul id="m-includes-mobile"></ul>
+              <a href="#contacto" class="modal-cta">Reservar servicio →</a>
+              <p style="text-align:center; margin-top: 24px; font-size: 10px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.1em;">Toca para volver ↺</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -651,42 +782,42 @@
       desc: 'Cortes diseñados con precisión milimétrica. Estudio de rostro, textura y movimiento.',
       price: '€55', unit: 'desde', time: '60 min', freq: 'Cada 6 — 8 semanas',
       lead: 'Un corte que entiende tu cara, tu rutina y tu textura. Empezamos con una conversación de 10 minutos: cómo te peinas, cuánto tiempo dedicas, qué referencias miras. De ahí sale un corte hecho a tu medida.',
-      includes: [['Diagnóstico capilar','10 min'],['Lavado con productos veganos','incluido'],['Corte personalizado','40 min'],['Peinado &amp; estilismo final','10 min']]
+      includes: [['Diagnóstico capilar','10 min'],['Lavado con productos veganos','incluido'],['Corte personalizado','40 min'],['Peinado & estilismo final','10 min']]
     },
     {
       name: 'Color & balayage',
       desc: 'Mechas a mano alzada, coberturas naturales y trabajos de color creativos. Sin amoníaco.',
       price: '€120', unit: 'desde', time: '2 — 3 h', freq: 'Cada 10 — 14 semanas',
       lead: 'Color que parece nacido de tu cabello. Trabajamos balayage a mano alzada, baby lights y coberturas tonales con marcas certificadas vegan, sin amoníaco ni aceleradores agresivos.',
-      includes: [['Test de mechón previo','15 min'],['Aplicación a mano alzada','90 — 120 min'],['Tratamiento Olaplex Nº 2','incluido'],['Corte de puntas &amp; peinado','incluido']]
+      includes: [['Test de mechón previo','15 min'],['Aplicación a mano alzada','90 — 120 min'],['Tratamiento Olaplex Nº 2','incluido'],['Corte de puntas & peinado','incluido']]
     },
     {
       name: 'Tratamiento intensivo',
       desc: 'Rituales para hidratar, reparar y devolver brillo. Olaplex, K18 y queratina vegetal.',
       price: '€45', unit: 'desde', time: '45 min', freq: 'Mensual',
       lead: 'Diseñamos el ritual según el estado de tu cabello. Olaplex para reparar enlaces de disulfuro, K18 para fibras dañadas por color, y queratina vegetal para brillo y sellado.',
-      includes: [['Diagnóstico de fibra','incluido'],['Mascarilla a medida','20 min'],['Masaje craneal con aceites','10 min'],['Secado &amp; sellado térmico','15 min']]
+      includes: [['Diagnóstico de fibra','incluido'],['Mascarilla a medida','20 min'],['Masaje craneal con aceites','10 min'],['Secado & sellado térmico','15 min']]
     },
     {
       name: 'Novias & eventos',
       desc: 'Peinados editoriales con prueba previa. Recogidos, semirrecogidos y trenzas escultóricas.',
       price: '€180', unit: 'paquete', time: '2 prueba + día', freq: 'Reserva 3 meses antes',
       lead: 'Un acompañamiento en dos citas: una prueba con fotografías y un día del evento sin prisas, en el estudio o donde nos pidas. Trabajamos con flores naturales, joyería y velos.',
-      includes: [['Prueba de peinado &amp; foto','90 min'],['Día del evento — peinado','90 min'],['Maquillaje (opcional)','+€110'],['Desplazamiento (opcional)','+€60']]
+      includes: [['Prueba de peinado & foto','90 min'],['Día del evento — peinado','90 min'],['Maquillaje (opcional)','+€110'],['Desplazamiento (opcional)','+€60']]
     },
     {
       name: 'Asesoría de imagen',
       desc: 'Sesión de 90 minutos para repensar tu look: corte, color, rutina y producto. Sin tijeras.',
       price: '€90', unit: 'sesión única', time: '90 min', freq: 'Una vez al año',
       lead: 'Sin tijeras, sin color. Una conversación honesta sobre tu cabello, tu estilo y tu rutina. Salimos con un plan a 6 meses, una lista de productos y un par de referencias visuales.',
-      includes: [['Análisis de cabello &amp; rostro','20 min'],['Moodboard a medida','30 min'],['Plan a 6 meses','20 min'],['Lista de producto recomendado','incluido']]
+      includes: [['Análisis de cabello & rostro','20 min'],['Moodboard a medida','30 min'],['Plan a 6 meses','20 min'],['Lista de producto recomendado','incluido']]
     },
     {
       name: 'Caballeros',
       desc: 'Cortes clásicos y contemporáneos para hombre. Barbería tradicional con toalla caliente.',
       price: '€38', unit: 'desde', time: '45 min', freq: 'Cada 4 semanas',
       lead: 'Side parts, fades, undercuts y cortes editoriales. Servicio completo con lavado, perfilado de barba opcional y ritual de toalla caliente.',
-      includes: [['Lavado &amp; masaje','10 min'],['Corte personalizado','25 min'],['Perfilado barba (opcional)','+€12'],['Toalla caliente &amp; final','10 min']]
+      includes: [['Lavado & masaje','10 min'],['Corte personalizado','25 min'],['Perfilado barba (opcional)','+€12'],['Toalla caliente & final','10 min']]
     },
   ];
 
@@ -701,30 +832,62 @@
   `).join('');
 
   const backdrop = document.getElementById('modal-backdrop');
-  const closeBtn = document.getElementById('modal-close');
+  const card = document.getElementById('modal-card');
+  const closeBtns = document.querySelectorAll('.modal-close');
 
   function openService(i){
     const s = SERVICES[i];
-    document.getElementById('m-name').textContent = s.name;
-    document.getElementById('m-lead').textContent = s.lead;
-    document.getElementById('m-time').textContent = s.time;
-    document.getElementById('m-price').textContent = s.price;
-    document.getElementById('m-freq').textContent = s.freq;
-    document.getElementById('m-includes').innerHTML = s.includes
-      .map(([k,v]) => `<li><span>${k}</span><span>${v}</span></li>`).join('');
+    const includesHtml = s.includes.map(([k,v]) => `<li><span>${k}</span><span>${v}</span></li>`).join('');
+
+    // Update Desktop
+    document.getElementById('m-name-desktop').textContent = s.name;
+    document.getElementById('m-lead-desktop').textContent = s.lead;
+    document.getElementById('m-time-desktop').textContent = s.time;
+    document.getElementById('m-price-desktop').textContent = s.price;
+    document.getElementById('m-freq-desktop').textContent = s.freq;
+    document.getElementById('m-includes-desktop').innerHTML = includesHtml;
+
+    // Update Mobile
+    document.getElementById('m-name-front').textContent = s.name;
+    document.getElementById('m-name-back').textContent = s.name;
+    document.getElementById('m-lead-mobile').textContent = s.lead;
+    document.getElementById('m-time-mobile').textContent = s.time;
+    document.getElementById('m-price-mobile').textContent = s.price;
+    document.getElementById('m-freq-mobile').textContent = s.freq;
+    document.getElementById('m-includes-mobile').innerHTML = includesHtml;
+    
+    card.classList.remove('is-flipped');
     backdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
   function closeModal(){
     backdrop.classList.remove('open');
     document.body.style.overflow = '';
+    setTimeout(() => card.classList.remove('is-flipped'), 400);
   }
+
   grid.addEventListener('click', e => {
     const row = e.target.closest('.service-row');
     if (row) openService(+row.dataset.i);
   });
-  closeBtn.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('.modal-cta')) return;
+    card.classList.toggle('is-flipped');
+  });
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      closeModal();
+    });
+  });
+
+  backdrop.addEventListener('click', e => { 
+    if (e.target === backdrop) closeModal(); 
+  });
+
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
