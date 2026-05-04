@@ -21,8 +21,17 @@
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased}
-  body{overflow-x:hidden}
+  html,body{color:var(--ink);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased}
+  body{
+    overflow-x:hidden;
+    background-color:var(--bg);
+    background-image:
+      linear-gradient(oklch(0 0 0 / 0.55), oklch(0 0 0 / 0.55)),
+      url('hero.png');
+    background-attachment:fixed;
+    background-size:cover;
+    background-position:center;
+  }
   .inner{max-width:1180px;margin:0 auto;width:100%}
   img{display:block;max-width:100%}
   a{color:inherit;text-decoration:none}
@@ -59,7 +68,7 @@
     content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
     background:currentColor;transition:width .25s;
   }
-  .nav a:hover::after{width:100%}
+  .nav a:hover::after, .nav a.active::after{width:100%}
   .nav-cta{
     padding:11px 22px;border:1px solid currentColor;
     border-radius:999px;font-size:12px;font-weight:600;
@@ -82,6 +91,7 @@
       url('hero.png');
     background-size: cover;
     background-position: center;
+    transform-origin: center center;
   }
   .hero-content{
     position:absolute;inset:0;
@@ -137,6 +147,7 @@
   .section-title em{color:var(--accent);font-style:normal}
 
   /* ============ NOSOTROS ============ */
+  #nosotros{background:var(--bg)}
   .about{
     display:grid;grid-template-columns: 1fr 1fr;gap:80px;align-items:center;
   }
@@ -218,8 +229,22 @@
   .modal-backdrop.open .modal-desktop{ opacity: 1; transform: scale(1); }
   
   .modal-desktop .m-img{
-    background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
-    background-size: cover; background-position: center;
+    position:relative; overflow:hidden;
+  }
+  .modal-desktop .m-img::before{
+    content:'';position:absolute;inset:-24px;
+    background:var(--svc-img, repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px));
+    background-size:cover;background-position:center;
+    filter:blur(14px);
+  }
+  .modal-desktop .m-img::after{
+    content:'Foto solo de ejemplo';
+    position:absolute;inset:0;z-index:1;
+    display:flex;align-items:flex-end;justify-content:center;
+    padding-bottom:24px;
+    font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+    color:oklch(1 0 0 / 0.75);
+    background:linear-gradient(to bottom, transparent 50%, oklch(0 0 0 / 0.35));
   }
   .modal-desktop .m-content{ padding: 60px; overflow-y: auto; }
   .modal-desktop .modal-close{ 
@@ -275,6 +300,7 @@
   /* Mobile Flip Card (Hidden by default) */
   .modal-mobile-wrap { display: none; }
 
+  #galeria{background:var(--bg)}
   /* ============ GALER\u00cdA — im\u00e1genes ALTAS ============ */
   .gallery-wrap{
     display:grid;grid-template-columns: repeat(12, 1fr);gap:20px;
@@ -301,11 +327,27 @@
   .post{display:flex;flex-direction:column;cursor:pointer}
   .post-img{
     aspect-ratio: 4/5;
-    background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
     margin-bottom:24px;overflow:hidden;
     transition: transform .4s;
+    position:relative;
   }
-  .post:hover .post-img{transform:scale(1.02)}
+  .post-img::before{
+    content:'';position:absolute;inset:-16px;
+    background:var(--blog-img, repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px));
+    background-size:cover;background-position:center;
+    filter:blur(12px);
+    transition:transform .4s;
+  }
+  .post-img::after{
+    content:'Foto solo de ejemplo';
+    position:absolute;inset:0;z-index:1;
+    display:flex;align-items:flex-end;justify-content:center;
+    padding-bottom:14px;
+    font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+    color:oklch(1 0 0 / 0.75);
+    background:linear-gradient(to bottom, transparent 50%, oklch(0 0 0 / 0.35));
+  }
+  .post:hover .post-img::before{transform:scale(1.04)}
   .post .meta{
     font-size:11px;letter-spacing:0.18em;
     text-transform:uppercase;color:var(--ink-2);margin-bottom:12px;
@@ -325,6 +367,7 @@
   }
 
   /* ============ CONTACTO ============ */
+  #contacto{background:var(--bg)}
   .contact{
     display:grid;grid-template-columns: 1.1fr 1fr;gap:80px;align-items:start;
   }
@@ -391,6 +434,89 @@
   .submit:hover{background:var(--accent)}
   .submit:active{transform:scale(0.99)}
 
+  /* ============ TESTIMONIOS ============ */
+  #testimonios{
+    background:oklch(0.97 0 0 / 0.75);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .testimonios-rating{
+    display:flex;align-items:center;gap:20px;
+    margin-top:32px;margin-bottom:36px;
+    padding-bottom:32px;border-bottom:1px solid var(--line);
+  }
+  .rating-score{
+    font-family:var(--display);font-size:56px;font-weight:500;
+    line-height:1;letter-spacing:-0.04em;
+  }
+  .rating-right{display:flex;flex-direction:column;gap:6px}
+  .rating-stars{color:#fbbc04;font-size:22px;letter-spacing:2px}
+  .rating-count{font-size:13px;color:var(--ink-2)}
+  .rating-google{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:600;letter-spacing:0.05em;color:var(--ink-2);
+  }
+  .rating-google svg{width:18px;height:18px;flex-shrink:0}
+
+  .testimonios-carousel{position:relative;overflow:hidden}
+  .testimonios-track{
+    display:flex;
+    transition:transform .5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .testimonio{
+    flex:0 0 calc(100% / 3);min-width:0;
+    padding:0 8px;
+  }
+  .testimonio-card{
+    background:var(--bg);border:1px solid var(--line);
+    border-radius:12px;padding:24px;
+    display:flex;flex-direction:column;gap:14px;height:100%;
+  }
+  .testimonio-header{display:flex;align-items:center;gap:12px}
+  .testimonio-avatar{
+    width:42px;height:42px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;font-weight:600;color:#fff;
+  }
+  .testimonio-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .testimonio-meta strong{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .testimonio-meta time{font-size:12px;color:var(--ink-2)}
+  .testimonio-stars{color:#fbbc04;font-size:14px;letter-spacing:1px}
+  .testimonio-text{font-size:14px;line-height:1.65;color:var(--ink-2);flex:1}
+  .testimonio-source{
+    display:flex;align-items:center;gap:5px;margin-top:4px;
+    font-size:11px;color:var(--ink-2);letter-spacing:0.04em;
+  }
+  .testimonio-source svg{width:14px;height:14px;flex-shrink:0}
+
+  .testimonios-controls{
+    display:flex;align-items:center;justify-content:center;gap:20px;
+    padding:32px 0 0;
+  }
+  .test-btn{
+    width:44px;height:44px;border-radius:50%;border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;font-size:16px;
+    transition:background .2s,color .2s;background:var(--bg);
+  }
+  .test-btn:hover{background:var(--ink);color:var(--bg)}
+  .test-dots{display:flex;gap:7px;align-items:center}
+  .test-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--line);border:0;padding:0;
+    transition:background .25s,transform .25s;cursor:pointer;
+  }
+  .test-dot.active{background:var(--ink);transform:scale(1.4)}
+
+  /* ============ MAPA ============ */
+  .contact-map{
+    margin-top:48px;height:380px;
+    border:1px solid var(--line);overflow:hidden;
+    position:relative;
+  }
+  .contact-map iframe{
+    width:100%;height:100%;border:0;display:block;
+  }
+
   /* ============ FOOTER ============ */
   footer{
     background:var(--ink);color:var(--bg);
@@ -409,6 +535,19 @@
   footer ul{list-style:none}
   footer ul li{margin-bottom:12px;font-size:14px;color:oklch(0.88 0.02 70);transition:color .2s;cursor:pointer}
   footer ul li:hover{color:var(--bg)}
+  .footer-social{display:flex;gap:10px;margin-top:28px}
+  .footer-social a{
+    width:36px;height:36px;border-radius:50%;
+    border:1px solid oklch(0.38 0.02 50);
+    display:flex;align-items:center;justify-content:center;
+    color:oklch(0.75 0.02 70);
+    transition:background .2s,border-color .2s,color .2s;
+  }
+  .footer-social a:hover{background:var(--bg);border-color:var(--bg);color:var(--ink)}
+  .footer-social svg{width:15px;height:15px}
+  .footer-contact-list{list-style:none}
+  .footer-contact-list li{margin-bottom:10px;font-size:14px;color:oklch(0.88 0.02 70);line-height:1.4}
+  .footer-contact-list li strong{display:block;font-size:13px;font-weight:600;color:oklch(0.7 0.06 70);letter-spacing:0.15em;text-transform:uppercase;font-size:10px;margin-bottom:3px}
   .footer-bottom{
     display:flex;justify-content:space-between;align-items:center;
     padding-top:28px;border-top:1px solid oklch(0.4 0.02 50);
@@ -480,8 +619,21 @@
     .modal-face-front .modal-img{
       flex: 0 0 auto;
       height: 200px;
+      position:relative; overflow:hidden;
+    }
+    .modal-face-front .modal-img::before{
+      content:'';position:absolute;inset:-20px;
       background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
-      background-size: cover; background-position: center;
+      filter:blur(12px);
+    }
+    .modal-face-front .modal-img::after{
+      content:'Foto solo de ejemplo';
+      position:absolute;inset:0;z-index:1;
+      display:flex;align-items:flex-end;justify-content:center;
+      padding-bottom:14px;
+      font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+      color:oklch(1 0 0 / 0.75);
+      background:linear-gradient(to bottom, transparent 40%, oklch(0 0 0 / 0.35));
     }
     
     .modal-face-front .info-bar{
@@ -509,9 +661,23 @@
     }
     .modal-face-back .modal-img{
       flex: 1;
-      background:repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px);
-      background-size: cover; background-position: center;
       height: 100%;
+      position:relative; overflow:hidden;
+    }
+    .modal-face-back .modal-img::before{
+      content:'';position:absolute;inset:-20px;
+      background:var(--svc-img, repeating-linear-gradient(135deg, oklch(0.78 0.04 50) 0 1px, oklch(0.86 0.03 55) 1px 9px));
+      background-size:cover;background-position:center;
+      filter:blur(12px);
+    }
+    .modal-face-back .modal-img::after{
+      content:'Foto solo de ejemplo';
+      position:absolute;inset:0;z-index:1;
+      display:flex;align-items:flex-end;justify-content:center;
+      padding-bottom:20px;
+      font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+      color:oklch(1 0 0 / 0.75);
+      background:linear-gradient(to bottom, transparent 50%, oklch(0 0 0 / 0.35));
     }
     .modal-body{ 
       padding: 28px 20px 40px; 
@@ -539,7 +705,10 @@
       border-radius: 50%;
     }
 
+    .testimonio{flex:0 0 100%;}
+    .testimonios-rating{flex-direction:column;align-items:flex-start;gap:12px}
     .contact{grid-template-columns:1fr;gap:48px}
+    .contact-map{height:260px;margin-top:32px;}
     .row-2{grid-template-columns: 1fr; gap: 0;}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
     footer{padding:80px 24px 36px}
@@ -558,6 +727,7 @@
       <a href="#servicios">Servicios</a>
       <a href="#galeria">Galería</a>
       <a href="#blog">Blog</a>
+      <a href="#testimonios">Reseñas</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="#contacto" class="nav-cta">Reservar cita</a>
@@ -619,24 +789,24 @@
   <!-- ============ BLOG ============ -->
   <section id="blog">
     <div class="inner">
-    <h2 class="section-title">Diario.</h2>
+    <h2 class="section-title">Blog.</h2>
     <div class="blog-grid">
       <article class="post">
-        <div class="post-img"></div>
+        <div class="post-img" style="--blog-img:url('galeria4.png')"></div>
         <div class="meta">06 May 2026 · 5 min lectura</div>
         <h3>Cómo elegir el balayage que de verdad te favorece</h3>
         <p>Tono de piel, hábitos de lavado, mantenimiento. Una guía sin tecnicismos para entender qué pedirle a tu colorista la próxima vez.</p>
         <span class="read">Leer artículo →</span>
       </article>
       <article class="post">
-        <div class="post-img"></div>
+        <div class="post-img" style="--blog-img:url('galeria5.png')"></div>
         <div class="meta">22 Abr 2026 · 7 min lectura</div>
         <h3>El ritual de los lunes: recuperar el pelo después del verano</h3>
         <p>Cuatro pasos sencillos, productos que ya tienes en casa, y un par de mascarillas que valen su precio. Sin promesas mágicas.</p>
         <span class="read">Leer artículo →</span>
       </article>
       <article class="post">
-        <div class="post-img"></div>
+        <div class="post-img" style="--blog-img:url('galeria6.png')"></div>
         <div class="meta">14 Abr 2026 · 4 min lectura</div>
         <h3>Los flequillos que veremos esta primavera (y los que no)</h3>
         <p>Volvemos al curtain bangs, pero con una vuelta de tuerca. Repasamos las cinco variantes que estamos cortando ahora mismo.</p>
@@ -646,10 +816,145 @@
     </div>
   </section>
 
+  <!-- ============ TESTIMONIOS ============ -->
+  <section id="testimonios">
+    <div class="inner">
+    <h2 class="section-title">Lo que dicen <em>nuestras clientas.</em></h2>
+    <div class="testimonios-rating">
+      <div class="rating-score">4.9</div>
+      <div class="rating-right">
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-count">127 reseñas</div>
+        <div class="rating-google">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Reseñas de Google
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonios-carousel">
+      <div class="testimonios-track" id="test-track">
+        <div class="testimonio">
+          <div class="testimonio-card">
+            <div class="testimonio-header">
+              <div class="testimonio-avatar" style="background:#ea4335">S</div>
+              <div class="testimonio-meta">
+                <strong>Sofía M.</strong>
+                <time>hace 2 semanas</time>
+              </div>
+            </div>
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">Llevaba años con miedo al cambio de color. En Mareva entendieron exactamente lo que quería sin que yo supiera explicarlo. El resultado fue increíble.</p>
+            <div class="testimonio-source">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Publicado en Google
+            </div>
+          </div>
+        </div>
+        <div class="testimonio">
+          <div class="testimonio-card">
+            <div class="testimonio-header">
+              <div class="testimonio-avatar" style="background:#4285f4">C</div>
+              <div class="testimonio-meta">
+                <strong>Carlos R.</strong>
+                <time>hace 1 mes</time>
+              </div>
+            </div>
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">Primer corte que me dura de verdad más de tres meses. La consulta previa marca una diferencia brutal. Nunca volveré a ir a otro sitio.</p>
+            <div class="testimonio-source">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Publicado en Google
+            </div>
+          </div>
+        </div>
+        <div class="testimonio">
+          <div class="testimonio-card">
+            <div class="testimonio-header">
+              <div class="testimonio-avatar" style="background:#34a853">E</div>
+              <div class="testimonio-meta">
+                <strong>Elena V.</strong>
+                <time>hace 2 meses</time>
+              </div>
+            </div>
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">La prueba de peinado de novia fue todo un acierto. Me vi en el espejo y supe que era lo que quería. El día de la boda, perfecto.</p>
+            <div class="testimonio-source">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Publicado en Google
+            </div>
+          </div>
+        </div>
+        <div class="testimonio">
+          <div class="testimonio-card">
+            <div class="testimonio-header">
+              <div class="testimonio-avatar" style="background:#9c27b0">M</div>
+              <div class="testimonio-meta">
+                <strong>Marta L.</strong>
+                <time>hace 3 meses</time>
+              </div>
+            </div>
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">Tenía el pelo muy dañado por el tinte en casa. Después del tratamiento K18 cambió completamente la textura. Lo noté desde el primer lavado.</p>
+            <div class="testimonio-source">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Publicado en Google
+            </div>
+          </div>
+        </div>
+        <div class="testimonio">
+          <div class="testimonio-card">
+            <div class="testimonio-header">
+              <div class="testimonio-avatar" style="background:#f57c00">A</div>
+              <div class="testimonio-meta">
+                <strong>Andrea F.</strong>
+                <time>hace 4 meses</time>
+              </div>
+            </div>
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">Nunca había tenido una asesoría de imagen. Salí con un plan real, referencias concretas y por primera vez entendí mi propio cabello.</p>
+            <div class="testimonio-source">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Publicado en Google
+            </div>
+          </div>
+        </div>
+        <div class="testimonio">
+          <div class="testimonio-card">
+            <div class="testimonio-header">
+              <div class="testimonio-avatar" style="background:#00897b">I</div>
+              <div class="testimonio-meta">
+                <strong>Isabel G.</strong>
+                <time>hace 5 meses</time>
+              </div>
+            </div>
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">El ambiente es especial. No hay prisa, te escuchan y el resultado habla por sí solo. Llevo dos años viniendo y no me planteo cambiar.</p>
+            <div class="testimonio-source">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Publicado en Google
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonios-controls">
+        <button class="test-btn" id="test-prev" aria-label="Anterior">←</button>
+        <div class="test-dots" id="test-dots"></div>
+        <button class="test-btn" id="test-next" aria-label="Siguiente">→</button>
+      </div>
+    </div>
+    </div>
+  </section>
+
   <!-- ============ CONTACTO ============ -->
   <section id="contacto">
     <div class="inner">
-    <h2 class="section-title">Reserva tu <em>cita.</em></h2>
+    <h2 class="section-title">Ponte en <em>contacto.</em></h2>
     <div class="contact">
       <div class="contact-info">
         <h3>Hablemos sin prisa.</h3>
@@ -663,11 +968,11 @@
         </div>
         <div class="info-block">
           <div class="k">Contacto</div>
-          <div class="v"><strong>+34 911 234 567</strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="650d0a090425080417001304161110010c0a4b060a08">[email&#160;protected]</a></div>
+          <div class="v"><strong>+34 911 234 567</strong>hola@marevastudio.es</div>
         </div>
         <div class="info-block">
           <div class="k">Social</div>
-          <div class="v"><strong>@marevastudio</strong>Instagram · TikTok · Pinterest</div>
+          <div class="v"><strong>@marevastudio</strong>Instagram · TikTok · WhatsApp</div>
         </div>
       </div>
 
@@ -711,6 +1016,15 @@
         <button class="submit" type="submit">Enviar solicitud</button>
       </form>
     </div>
+    <div class="contact-map">
+      <iframe
+        src="https://maps.google.com/maps?q=Calle+Serrano+47%2C+Madrid%2C+Spain&t=&z=16&ie=UTF8&iwloc=&output=embed"
+        title="Ubicación Mareva Studio — Calle Serrano 47, Madrid"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
     </div>
   </section>
 
@@ -721,18 +1035,55 @@
       <div>
         <div class="footer-brand">Mareva.</div>
         <p class="footer-tag">Un estudio de peluquería en Madrid donde la técnica clásica se encuentra con la sensibilidad editorial. Desde 2014.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.72a4.85 4.85 0 01-1.01-.03z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
       </div>
       <div>
-        <h6>Estudio</h6>
-        <ul><li>Sobre nosotros</li><li>Equipo</li><li>Filosofía</li><li>Trabajar con nosotros</li></ul>
+        <h6>Navegar</h6>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#testimonios">Reseñas</a></li>
+          <li><a href="#contacto">Reservar cita</a></li>
+        </ul>
       </div>
       <div>
         <h6>Servicios</h6>
-        <ul><li>Corte editorial</li><li>Color &amp; balayage</li><li>Tratamientos</li><li>Novias</li><li>Caballeros</li></ul>
+        <ul>
+          <li>Corte editorial</li>
+          <li>Color &amp; balayage</li>
+          <li>Tratamiento intensivo</li>
+          <li>Novias &amp; eventos</li>
+          <li>Asesoría de imagen</li>
+          <li>Caballeros</li>
+        </ul>
       </div>
       <div>
-        <h6>Visítanos</h6>
-        <ul><li>Serrano 47, 2º</li><li>28001 Madrid</li><li>+34 911 234 567</li><li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="224a4d4e43624f4350475443515657464b4d0c414d4f">[email&#160;protected]</a></li></ul>
+        <h6>Contacto</h6>
+        <ul class="footer-contact-list">
+          <li><strong>Dirección</strong>Calle Serrano, 47 — 2º<br>28001 Madrid · España</li>
+          <li><strong>Horario</strong>Lun — Vie · 10:00 — 21:00<br>Sábados · 10:00 — 19:00</li>
+          <li><strong>Teléfono</strong>+34 911 234 567</li>
+          <li><strong>Email</strong>hola@marevastudio.es</li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
@@ -800,11 +1151,28 @@
   </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Topbar scroll state
+  // Topbar scroll state + hero zoom progresivo
   const topbar = document.getElementById('topbar');
+  const heroImg = document.querySelector('.hero-img');
+  const hero    = document.querySelector('.hero');
   window.addEventListener('scroll', () => {
     topbar.classList.toggle('scrolled', window.scrollY > 60);
+    const progress = Math.min(window.scrollY / hero.offsetHeight, 1);
+    heroImg.style.transform = `scale(${1 + progress * 0.08})`;
   });
+
+  // Nav active section indicator
+  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+        if(link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
 
   const SERVICES = [
     {
@@ -877,6 +1245,11 @@
     document.getElementById('m-freq-desktop').textContent = s.freq;
     document.getElementById('m-includes-desktop').innerHTML = includesHtml;
 
+    // Imagen real por servicio
+    const svcImg = `url('galeria${i + 1}.png')`;
+    document.getElementById('m-img-desktop').style.setProperty('--svc-img', svcImg);
+    document.getElementById('m-img-front').style.setProperty('--svc-img', svcImg);
+
     // Update Mobile
     document.getElementById('m-name-front').textContent = s.name;
     document.getElementById('m-name-back').textContent = s.name;
@@ -937,6 +1310,88 @@
       }
     });
   });
+
+  // Testimonios carousel — infinite loop
+  (function(){
+    const track    = document.getElementById('test-track');
+    const dotsWrap = document.getElementById('test-dots');
+    const prevBtn  = document.getElementById('test-prev');
+    const nextBtn  = document.getElementById('test-next');
+    const origCards= Array.from(track.querySelectorAll('.testimonio'));
+    const total    = origCards.length;
+    let current = 0, busy = false;
+
+    function pp(){ return window.innerWidth >= 980 ? 3 : 1; }
+
+    function setup(){
+      const n = pp();
+      track.querySelectorAll('.testimonio-clone').forEach(c => c.remove());
+
+      // Prepend clones of last n originals
+      const pre = document.createDocumentFragment();
+      origCards.slice(-n).forEach(c => {
+        const cl = c.cloneNode(true); cl.classList.add('testimonio-clone'); pre.appendChild(cl);
+      });
+      track.insertBefore(pre, track.firstChild);
+
+      // Append clones of first n originals
+      origCards.slice(0, n).forEach(c => {
+        const cl = c.cloneNode(true); cl.classList.add('testimonio-clone'); track.appendChild(cl);
+      });
+
+      track.querySelectorAll('.testimonio').forEach(c => c.style.flex = '0 0 ' + (100/n) + '%');
+      current = n;
+      setPos(false);
+      buildDots();
+    }
+
+    function setPos(animate){
+      const n = pp();
+      track.style.transition = animate ? 'transform .5s cubic-bezier(0.4,0,0.2,1)' : 'none';
+      if(!animate) track.offsetHeight; // force reflow to apply instantly
+      track.style.transform = 'translateX(-' + (current * (100/n)) + '%)';
+    }
+
+    function buildDots(){
+      dotsWrap.innerHTML = '';
+      for(let i = 0; i < total; i++){
+        const d = document.createElement('button');
+        d.className = 'test-dot';
+        d.setAttribute('aria-label', 'Reseña ' + (i+1));
+        d.addEventListener('click', () => { if(!busy) moveTo(pp() + i); });
+        dotsWrap.appendChild(d);
+      }
+      syncDots();
+    }
+
+    function syncDots(){
+      const n = pp();
+      const idx = ((current - n) % total + total) % total;
+      Array.from(dotsWrap.children).forEach((d,j) => d.classList.toggle('active', j === idx));
+    }
+
+    function moveTo(i){
+      busy = true;
+      current = i;
+      setPos(true);
+      syncDots();
+    }
+
+    track.addEventListener('transitionend', e => {
+      if(e.propertyName !== 'transform') return;
+      const n = pp();
+      if(current < n)          { current += total; setPos(false); }
+      else if(current >= n + total){ current -= total; setPos(false); }
+      syncDots();
+      busy = false;
+    });
+
+    prevBtn.addEventListener('click', () => { if(!busy) moveTo(current - 1); });
+    nextBtn.addEventListener('click', () => { if(!busy) moveTo(current + 1); });
+    window.addEventListener('resize', () => { busy = false; setup(); });
+    setup();
+  })();
+
 
   document.getElementById('contact-form').addEventListener('submit', e => {
     e.preventDefault();
