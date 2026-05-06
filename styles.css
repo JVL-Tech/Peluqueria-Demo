@@ -375,16 +375,18 @@ section > .inner{padding:0 56px}
 
 /* Encabezado de categoría dentro de servicios.html */
 .svc-category{
-  font-family:var(--display);font-weight:500;
-  font-size:24px;letter-spacing:-.02em;
-  margin:60px 0 8px;padding-bottom:12px;
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(22px, 3vw, 34px);letter-spacing:-.03em;
+  margin:72px 0 0;padding:20px 0 16px;
+  border-top:2px solid var(--ink);
   border-bottom:1px solid var(--line);
-  display:flex;justify-content:space-between;align-items:flex-end;
-  color:var(--ink);
+  display:flex;justify-content:space-between;align-items:center;
+  color:var(--ink);gap:16px;
 }
 .svc-category small{
   font-family:var(--sans);font-weight:500;font-size:11px;
   letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);
+  flex-shrink:0;
 }
 .svc-category:first-child{margin-top:0}
 
@@ -1270,8 +1272,9 @@ footer ul li a:hover{color:var(--bg);transform:translateX(2px)}
   .scroll-tag{display:none}
 
   .about{grid-template-columns:1fr;gap:48px}
-  .service-row{grid-template-columns: 1fr 50px;gap:14px}
+  .service-row{grid-template-columns: 1fr 44px;gap:12px}
   .service-row .desc, .service-row .price{display:none}
+  .svc-category{flex-direction:column;align-items:flex-start;gap:6px}
 
   .gallery-wrap{grid-template-columns:repeat(2,1fr)}
   .gal{grid-column: span 1 !important;height:380px !important;margin-top:0 !important}
