@@ -106,6 +106,7 @@ a{touch-action:manipulation}
 .topbar.scrolled .nav-cta:hover, .topbar.is-solid .nav-cta:hover{background:var(--ink);color:var(--bg)}
 .topbar:not(.scrolled):not(.is-solid) .nav-cta:hover{background:var(--bg);color:var(--ink)}
 .nav-cta:active{transform:scale(.97)}
+.topbar.scrolled .nav-cta.is-active, .topbar.is-solid .nav-cta.is-active{background:var(--ink);color:var(--bg)}
 
 /* Burguer menú móvil */
 .menu-toggle{
@@ -136,15 +137,20 @@ a{touch-action:manipulation}
 }
 /* Botón cerrar dentro del nav */
 .nav-close{
-  position:absolute;top:20px;right:20px;
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-  background:transparent;cursor:pointer;
-  transition:background .2s, transform .2s;
+  display:none;
 }
-.nav-close:hover{background:var(--bg-2);transform:rotate(90deg)}
-.nav-close svg{width:16px;height:16px;display:block}
+@media(max-width:980px){
+  .nav-close{
+    position:absolute;top:20px;right:20px;
+    width:36px;height:36px;border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;cursor:pointer;
+    transition:background .2s, transform .2s;
+  }
+  .nav-close:hover{background:var(--bg-2);transform:rotate(90deg)}
+  .nav-close svg{width:16px;height:16px;display:block}
+}
 
 /* =================== HERO HOME =================== */
 .hero{
@@ -329,7 +335,7 @@ section > .inner{padding:0 56px}
 }
 
 /* =================== SERVICIOS (lista filas) =================== */
-#servicios{background:var(--bg-2)}
+#servicios{background:var(--bg)}
 .services-grid{
   display:flex;flex-direction:column;
   border-top:1px solid var(--line);
@@ -338,14 +344,15 @@ section > .inner{padding:0 56px}
   display:grid;grid-template-columns: 1.4fr 2fr 1fr 60px;
   gap:32px;align-items:center;
   padding:38px 0;border-bottom:1px solid var(--line);
-  cursor:pointer;transition: padding .25s var(--ease), background .25s;
+  cursor:pointer;
+  background-color:var(--bg);
   position:relative;
 }
-.service-row:hover{padding-left:24px;padding-right:24px;background:var(--bg-3)}
+.service-row:hover{background-color:#e0e0e0;}
 .service-row .name{
   font-family:var(--display);font-weight:500;
   font-size: clamp(20px, 2vw, 28px);line-height:1.05;letter-spacing:-.025em;
-  transition:color .25s;
+  transition:color .25s ease-in-out;
 }
 .service-row:hover .name{color:var(--accent)}
 .service-row .desc{
@@ -361,7 +368,7 @@ section > .inner{padding:0 56px}
 .service-row .arr{
   width:50px;height:50px;border:1px solid var(--ink);border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  transition: background .25s, color .25s, transform .25s;
+  transition:background .25s ease-in-out, color .25s ease-in-out, transform .25s ease-in-out;
 }
 .service-row:hover .arr{background:var(--ink);color:var(--bg);transform:rotate(-45deg)}
 
@@ -963,7 +970,7 @@ section > .inner{padding:0 56px}
 }
 .rating-google svg{width:18px;height:18px;flex-shrink:0}
 
-.testimonios-carousel{position:relative;overflow:hidden}
+.testimonios-carousel{position:relative;overflow:visible;clip-path:inset(-20px 0px 0px 0px)}
 .testimonios-track{
   display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);
 }
@@ -1168,6 +1175,9 @@ footer ul li a:hover{color:var(--bg);transform:translateX(2px)}
   transition-delay: calc(var(--d, 0) * 70ms);
 }
 .stagger.is-visible > *{opacity:1;transform:none}
+.stagger > .service-row, .service-row.reveal{
+  transition: opacity .7s var(--ease), transform .7s var(--ease), background-color .5s ease-in-out;
+}
 
 /* =================== RESPONSIVE =================== */
 @media (max-width: 1080px){

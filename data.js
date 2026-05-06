@@ -72,7 +72,7 @@ const IMG = {
   /* Blog */
   blog01: 'images/photo-1554519515-242161756769.jpg',
   blog02: 'images/photo-1503951914875-452162b0f3f1.jpg',
-  blog03: 'https://images.unsplash.com/photo-1620331317420-f49e7ad9b9ec?w=1200&q=80&auto=format&fit=crop',
+  blog03: 'images/photo-1605497788044-5a32c7078486.jpg',
   blog04: 'images/photo-1571875257727-256c39da42af.jpg',
   blog05: 'images/photo-1633681926022-84c23e8cb2d6.jpg',
   blog06: 'images/photo-1605497788044-5a32c7078486.jpg',
