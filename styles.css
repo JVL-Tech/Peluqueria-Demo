@@ -113,17 +113,38 @@ a{touch-action:manipulation}
   width:40px;height:40px;border:1px solid currentColor;border-radius:50%;
   align-items:center;justify-content:center;
   position:relative;
+  transition:border-color .3s, transform .3s var(--ease);
 }
 .menu-toggle span{
-  width:16px;height:1px;background:currentColor;
+  width:16px;height:1.5px;background:currentColor;
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  transition:transform .25s var(--ease), opacity .2s;
+  transition:transform .35s var(--ease), opacity .25s, width .25s var(--ease);
+  transform-origin:center;
 }
 .menu-toggle span:nth-child(1){transform:translate(-50%,-5px)}
 .menu-toggle span:nth-child(3){transform:translate(-50%,5px)}
-.menu-open .menu-toggle span:nth-child(1){transform:translate(-50%,0) rotate(45deg)}
-.menu-open .menu-toggle span:nth-child(2){opacity:0}
-.menu-open .menu-toggle span:nth-child(3){transform:translate(-50%,0) rotate(-45deg)}
+/* Burger → X */
+.menu-open .menu-toggle{transform:rotate(90deg)}
+.menu-open .menu-toggle span:nth-child(1){
+  transform:translate(-50%,0) rotate(45deg);
+  width:18px;
+}
+.menu-open .menu-toggle span:nth-child(2){opacity:0;width:0}
+.menu-open .menu-toggle span:nth-child(3){
+  transform:translate(-50%,0) rotate(-45deg);
+  width:18px;
+}
+/* Botón cerrar dentro del nav */
+.nav-close{
+  position:absolute;top:20px;right:20px;
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;cursor:pointer;
+  transition:background .2s, transform .2s;
+}
+.nav-close:hover{background:var(--bg-2);transform:rotate(90deg)}
+.nav-close svg{width:16px;height:16px;display:block}
 
 /* =================== HERO HOME =================== */
 .hero{
@@ -901,18 +922,23 @@ section > .inner{padding:0 56px}
 
 /* Marcas / partners */
 .brands-strip{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:24px;
-  margin-top:48px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:36px 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:48px;border:1px solid var(--line);
 }
 .brand-logo{
-  text-align:center;
-  font-family:var(--display);font-weight:500;font-size:22px;letter-spacing:-.02em;
-  color:var(--ink-3);
-  transition:color .25s, transform .25s var(--ease);
+  display:flex;flex-direction:column;gap:6px;
+  padding:28px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  transition:background .2s;
   cursor:default;
 }
-.brand-logo:hover{color:var(--ink);transform:scale(1.05)}
+.brand-logo:hover{background:var(--bg-2)}
+.brand-name{
+  font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:-.02em;
+  color:var(--ink);transition:color .25s;
+}
+.brand-use{
+  font-size:12px;color:var(--ink-2);line-height:1.4;letter-spacing:.03em;
+}
 
 /* =================== TESTIMONIOS =================== */
 #testimonios{
@@ -1020,6 +1046,7 @@ section > .inner{padding:0 56px}
   margin-bottom:8px;
   transition: background .25s, transform .3s var(--ease);
 }
+.gt-ic svg{width:24px;height:24px;flex-shrink:0}
 .get-there-card:hover .gt-ic{background:var(--accent);transform:rotate(-8deg) scale(1.05)}
 
 /* =================== CONTACT CHANNELS =================== */
@@ -1039,6 +1066,7 @@ section > .inner{padding:0 56px}
   margin-bottom:10px;
   transition:background .25s, transform .25s var(--ease);
 }
+.contact-channel .cc-ic svg{width:22px;height:22px;flex-shrink:0}
 .contact-channel:hover .cc-ic{background:var(--accent);transform:rotate(-6deg)}
 .contact-channel h4{
   font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:-.02em;
@@ -1159,14 +1187,10 @@ footer ul li a:hover{color:var(--bg);transform:translateX(2px)}
     flex-direction:column;align-items:flex-start;justify-content:flex-start;
     padding:90px 32px 32px;gap:18px;
     transform:translateX(100%);transition:transform .35s var(--ease);
-    box-shadow:-12px 0 40px -8px rgba(17,17,17,.18);
-    z-index:60;
+    box-shadow:-4px 0 12px rgba(17,17,17,.08);
+    z-index:60;overflow-y:auto;
   }
   .menu-open .nav{transform:translateX(0)}
-  .menu-open::before{
-    content:"";position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:55;
-    backdrop-filter:blur(2px);
-  }
   .nav a{font-size:15px;padding:8px 0;width:100%}
   .topbar.scrolled .nav, .topbar.is-solid .nav{color:var(--ink)}
   .menu-toggle{display:flex}

@@ -386,7 +386,14 @@ const AWARDS = [
   { year: '2019', title: 'Salón del Año', org: 'Marie Claire España' }
 ];
 
-const BRANDS = ['Olaplex', 'K18', 'Davines', 'Oribe', 'Sisley Paris', 'Kérastase'];
+const BRANDS = [
+  { name: 'Olaplex',      use: 'Reparación & bonding capilar' },
+  { name: 'K18',          use: 'Tratamiento regenerador de queratina' },
+  { name: 'Davines',      use: 'Color, cuidado & styling sostenible' },
+  { name: 'Oribe',        use: 'Finishing & fijación de alta gama' },
+  { name: 'Sisley Paris', use: 'Tratamientos de lujo para el cuero cabelludo' },
+  { name: 'Kérastase',    use: 'Rituales de hidratación y fuerza' },
+];
 
 /* ============================================================
    GALERÍA

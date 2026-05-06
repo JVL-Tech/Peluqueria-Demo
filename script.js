@@ -25,6 +25,15 @@
   /* ============= MENÚ MÓVIL ============= */
   const menuBtn = document.querySelector('.menu-toggle');
   if (menuBtn){
+    // Botón de cierre dentro del panel
+    const nav = document.querySelector('.nav');
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'nav-close';
+    closeBtn.setAttribute('aria-label', 'Cerrar menú');
+    closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    nav.prepend(closeBtn);
+    closeBtn.addEventListener('click', () => document.body.classList.remove('menu-open'));
+
     menuBtn.addEventListener('click', () => {
       document.body.classList.toggle('menu-open');
     });
@@ -508,7 +517,11 @@
   /* ============= BRANDS render ============= */
   const brandsStrip = document.getElementById('brands-strip');
   if (brandsStrip && typeof BRANDS !== 'undefined'){
-    brandsStrip.innerHTML = BRANDS.map(b => `<div class="brand-logo">${b}</div>`).join('');
+    brandsStrip.innerHTML = BRANDS.map(b => `
+      <div class="brand-logo">
+        <span class="brand-name">${b.name}</span>
+        <span class="brand-use">${b.use}</span>
+      </div>`).join('');
   }
 
   /* ============= ADDONS render ============= */
