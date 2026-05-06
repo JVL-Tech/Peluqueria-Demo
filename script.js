@@ -471,9 +471,12 @@
   /* ============= TEAM render ============= */
   const teamGrid = document.getElementById('team-grid');
   if (teamGrid && typeof TEAM !== 'undefined'){
-    teamGrid.innerHTML = TEAM.map(m => `
+    teamGrid.innerHTML = TEAM.slice(0, 3).map(m => `
       <div class="team-card">
-        <div class="team-photo" style="background-image:url('${m.img}')"></div>
+        <div class="team-photo-wrap">
+          <div class="team-photo" style="background-image:url('${m.img}')"></div>
+          <span class="team-photo-badge">Foto de ejemplo</span>
+        </div>
         <h4 class="team-name">${m.name}</h4>
         <div class="team-role">${m.role}</div>
         <p class="team-bio">${m.bio}</p>

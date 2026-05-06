@@ -885,11 +885,19 @@ section > .inner{padding:0 56px}
 .team-card{
   display:flex;flex-direction:column;cursor:default;
 }
+.team-photo-wrap{position:relative;margin-bottom:20px}
+.team-photo-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  background:rgba(17,17,17,.7);color:#fff;
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 10px;pointer-events:none;
+}
 .team-photo{
-  aspect-ratio:3/4;margin-bottom:20px;
+  aspect-ratio:3/4;
   background-size:cover;background-position:center;
   position:relative;overflow:hidden;
   transition:transform .35s var(--ease);
+  filter:blur(4px);
 }
 .team-photo::after{
   content:'';position:absolute;inset:0;

@@ -310,45 +310,45 @@ const ADDONS = [
 const TEAM = [
   {
     name: 'Mareva Soto',
-    role: 'Fundadora · Directora creativa',
-    bio: 'Estudió en la academia Vidal Sassoon de Londres y ha trabajado con Vogue, Harper\'s Bazaar y Mango. Cree que el corte es escultura y que la conversación previa vale tanto como las tijeras.',
+    role: 'Fundadora',
+    bio: 'Lleva más de quince años en el oficio y fundó el estudio con una idea clara: que cada clienta salga sabiendo exactamente qué se hizo y por qué. Le apasiona la asesoría y los cambios de look.',
     img: IMG.team02,
-    tags: ['Cortes editoriales','Cambios radicales','Asesoría']
+    tags: ['Cortes','Cambios de look','Asesoría']
   },
   {
     name: 'Lucas Alarcón',
-    role: 'Senior stylist',
-    bio: 'Catorce años cortando y educando. Lleva la formación interna del estudio y se forma cada año en Tokio con la escuela Crew Hair Design.',
+    role: 'Estilista',
+    bio: 'Catorce años cortando. Se encarga también de la formación interna del equipo y siempre está buscando nuevas técnicas para seguir mejorando.',
     img: IMG.team04,
-    tags: ['Cortes editoriales','Caballeros','Master class']
+    tags: ['Cortes','Caballeros','Formación']
   },
   {
     name: 'Naia Etxeberri',
-    role: 'Color master',
-    bio: 'Certificada Davines, Wella Master Color Expert y Olaplex Educator. Especialista en balayage a mano alzada y trabajos cromáticos sobre canas.',
+    role: 'Especialista en color',
+    bio: 'Su fuerte es el color natural y el balayage. Especialmente buena trabajando con canas, tanto para cubrirlas como para realzarlas de forma elegante.',
     img: IMG.team06,
-    tags: ['Balayage','Color creativo','Cubrir canas']
+    tags: ['Balayage','Color','Canas']
   },
   {
     name: 'Olivia Ríos',
-    role: 'Eventos & novias',
-    bio: 'Peluquera y maquilladora con un pie en moda y otro en bodas. Más de 200 novias acompañadas con su método "una conversación por mes" durante el año previo.',
+    role: 'Novias & eventos',
+    bio: 'Peluquera y maquilladora especializada en bodas y eventos. Acompaña a las novias desde los primeros meses hasta el gran día con mucha calma y atención al detalle.',
     img: IMG.team03,
     tags: ['Recogidos','Novias','Eventos']
   },
   {
     name: 'Marcos Reyes',
-    role: 'Barbería contemporánea',
-    bio: 'Antes peluquero de plató en RTVE, ahora dedicado a redefinir la barbería: sin clichés, con cortes que duran y el cuidado de un spa.',
+    role: 'Barbería',
+    bio: 'Dedicado a la barbería sin clichés. Cortes que duran, buen trato y sin prisa. Le gusta que los clientes salgan sintiéndose bien sin haber pasado por algo demasiado complicado.',
     img: IMG.team05,
-    tags: ['Caballeros','Barba','Toalla caliente']
+    tags: ['Caballeros','Barba','Corte clásico']
   },
   {
     name: 'Sofía Linde',
-    role: 'Tratamientos & diagnóstico',
-    bio: 'Tricóloga certificada por la Trichological Society de Londres. Diseña los protocolos de tratamiento del estudio y la línea de productos propia.',
+    role: 'Tratamientos',
+    bio: 'Especialista en salud del cabello. Se encarga de los tratamientos más específicos del estudio y orienta a las clientas que tienen problemas concretos como caída, sequedad o caspa.',
     img: IMG.team01,
-    tags: ['Tricología','Olaplex','K18']
+    tags: ['Tratamientos','Caída','Hidratación']
   }
 ];
 
@@ -356,22 +356,22 @@ const TEAM = [
    TIMELINE / HISTORIA
    ============================================================ */
 const TIMELINE = [
-  { year: '2014', title: 'Apertura del primer estudio', text: 'Mareva abre en un piso reformado del barrio de Salamanca con dos sillones y una idea: peluquería sin prisas.' },
-  { year: '2017', title: 'Equipo certificado Davines & Olaplex', text: 'Toda la plantilla pasa por la formación oficial. Empezamos a trabajar exclusivamente con marcas vegan y bio-certificadas.' },
-  { year: '2019', title: 'Salón del Año por Marie Claire', text: 'Reconocimiento a la excelencia del color y al concepto de "slow hair". Reportaje a doble página en la edición de septiembre.' },
-  { year: '2021', title: 'Inauguración de la segunda planta', text: 'Abrimos un laboratorio capilar abierto al público: tricología, microscopía y diagnóstico avanzado en planta superior.' },
-  { year: '2023', title: 'Línea propia "Mareva Care"', text: 'Lanzamos cinco productos formulados en colaboración con un laboratorio de Florencia. Hoy disponibles en cuarenta puntos de venta en España.' },
-  { year: '2025', title: 'Top 50 Salons of Europe', text: 'Por segundo año consecutivo, listados entre los 50 mejores salones del continente por la guía profesional Modern Salon Europe.' }
+  { year: '2014', title: 'Abrimos el estudio', text: 'Mareva abre en un piso reformado del barrio de Salamanca con dos sillones y una idea simple: peluquería sin prisas, con cita previa y buen trato.' },
+  { year: '2017', title: 'Ampliamos el equipo', text: 'Incorporamos nuevos profesionales y empezamos a trabajar con productos sin amoníaco. Queríamos lo mejor para el cabello y para las clientas.' },
+  { year: '2019', title: 'Nos mudamos a un local más grande', text: 'Con más clientas y más servicios, dimos el salto a un espacio más amplio en la misma calle. Más sillones, más luz y más comodidad.' },
+  { year: '2021', title: 'Nuevos servicios de tratamiento', text: 'Incorporamos tratamientos más específicos para caída, sequedad y daño capilar. Sofía se une al equipo para llevarlos a cabo.' },
+  { year: '2023', title: 'Selección de productos para casa', text: 'Empezamos a recomendar a las clientas los productos que usamos nosotras, para que el resultado dure más entre visita y visita.' },
+  { year: '2025', title: 'Seguimos igual, a nuestra manera', text: 'Once años después, la misma filosofía: cita previa, sin prisas, con ganas de hacerlo bien. Y con muchas ganas de seguir.' }
 ];
 
 /* ============================================================
    FILOSOFÍA / PILARES
    ============================================================ */
 const PILLARS = [
-  { num: '01', title: 'Slow hair', text: 'Reservas espaciadas, conversaciones largas y un equipo que solo lleva tres clientas en paralelo. Sin prisas.' },
-  { num: '02', title: 'Vegan first', text: 'Cero amoníaco, cero parabenos, cero sulfatos. Trabajamos solo con marcas certificadas vegan y crueltyfree.' },
-  { num: '03', title: 'Diagnóstico previo', text: 'Cada cita empieza con 10 minutos de diagnóstico. Si no es lo que necesitas, te lo decimos.' },
-  { num: '04', title: 'Formación continua', text: 'Cierre del estudio dos semanas al año para que el equipo se forme en Londres, Tokio y Milán.' }
+  { num: '01', title: 'Sin prisas', text: 'Solo trabajamos con cita previa. Cada clienta tiene su tiempo, su especialista y su conversación. Sin carreras ni esperas.' },
+  { num: '02', title: 'Productos de calidad', text: 'Usamos marcas sin amoníaco y sin ingredientes agresivos. Lo probamos todo antes de aplicarlo. Para el cabello y para quien lo lleva.' },
+  { num: '03', title: 'Primero preguntamos', text: 'Antes de empezar, hablamos. Queremos entender qué quieres y qué le conviene a tu cabello. Si no coincide, te lo decimos.' },
+  { num: '04', title: 'Equipo que aprende', text: 'Hacemos formaciones regulares para seguir mejorando. No nos conformamos con lo de siempre si hay formas de hacerlo mejor.' }
 ];
 
 /* ============================================================
