@@ -1241,7 +1241,7 @@ footer ul li a:hover{color:var(--bg);transform:translateX(2px)}
 @media (max-width: 1080px){
   .footer-grid{grid-template-columns:1fr 1fr 1fr;gap:36px}
   .footer-grid > div:first-child{grid-column:span 3}
-  .pillars-grid, .awards-grid, .arrive-grid, .booking-info-grid{grid-template-columns:repeat(2,1fr)}
+  .pillars-grid, .awards-grid, .arrive-grid, .get-there-grid, .booking-info-grid{grid-template-columns:repeat(2,1fr)}
   .hours-grid{grid-template-columns:repeat(2,1fr)}
   .team-grid, .blog-grid, .packs-grid, .addons-grid{grid-template-columns:repeat(2,1fr)}
   .timeline-item{grid-template-columns:90px 1fr;gap:18px}
@@ -1286,7 +1286,7 @@ footer ul li a:hover{color:var(--bg);transform:translateX(2px)}
   .blog-grid{grid-template-columns:1fr}
   .post-img{aspect-ratio: 16/9}
 
-  .team-grid, .pillars-grid, .awards-grid, .arrive-grid, .booking-info-grid, .hours-grid, .packs-grid, .addons-grid{grid-template-columns:1fr}
+  .team-grid, .pillars-grid, .awards-grid, .arrive-grid, .get-there-grid, .booking-info-grid, .hours-grid, .packs-grid, .addons-grid{grid-template-columns:1fr}
   .booking-channel{padding:24px 20px;gap:18px}
   .bc-icon{width:42px;height:42px}
   .bc-body h4{font-size:17px}
